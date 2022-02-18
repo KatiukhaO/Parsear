@@ -4,6 +4,7 @@ from config import URL, FILE_NAME
 import csv
 
 
+
 def get_html(url):
     page = requests.get(URL)
     return page
@@ -40,9 +41,9 @@ def parser():
 def save_doc(list_items, path):
     with open(path, "w", encoding="utf-16") as file:
         writer = csv.writer(file)
-        writer.writerow(["country", "region", "price"])
+        writer.writerow(["country", "region", "price", "currency"])
         for i in list_items:
-            writer.writerow([i["name"][0], i["name"][-1], i["price"]])
+            writer.writerow([i["name"][0], i["name"][-1], i["price"][:-1], i["price"][-1]])
 
 
 if __name__ == '__main__':

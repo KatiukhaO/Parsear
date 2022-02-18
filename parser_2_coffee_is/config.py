@@ -6,3 +6,10 @@ HEADER = {
 }
 
 FILE_NAME = "list_coffee.csv"
+
+"""Parameters DB"""
+
+host = "localhost"
+user = "root"
+password = "1109Zlatan"
+name_db = "finca_coffee"
