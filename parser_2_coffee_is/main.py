@@ -36,7 +36,7 @@ def parser():
         for i in item:
             i["price"] = i["price"][:-1] + "UAH"
         save_in_db(item)
-        # save_doc(item, FILE_NAME)
+        save_doc(item, FILE_NAME)
     else:
         print("Error, we dont get html page")
 
@@ -54,7 +54,7 @@ def save_doc(list_items, path):
         writer = csv.writer(file)
         writer.writerow(["country", "region", "price", "currency"])
         for i in list_items:
-            writer.writerow([i["name"][0], i["name"][-1], i["price"][:-1], i["price"][-1]])
+            writer.writerow([i["name"][0], i["name"][-1].strip(), i["price"][:-3], i["price"][-3:]])
 
 
 if __name__ == '__main__':
