@@ -1,5 +1,6 @@
 from mysql.connector import connect, Error
 from config import user, password, host, name_db
+from query_to_db import create_db_query, create_table_price_query, drop_db_query
 
 
 def connect_to_db(host, user, password):
@@ -57,20 +58,18 @@ def execute_query(connection, query):
         print(f"EXECUTE QUERY IS FAIL - {e}")
 
 
-if __name__ == "__main__":
-    c = connect_to_db(host, user, password)
-    create_db_query = "CREATE DATABASE finca_coffee;"
-    # drop_db_query = "DROP DATABASE IF EXISTS finca_coffee"
-    create_new_db(c, create_db_query)
 
-    ec = connect_to_exist_db(host, user, password, name_db)
-    create_table_price_query = """ CREATE TABLE IF NOT EXISTS price(
-                                        id INT PRIMARY KEY AUTO_INCREMENT,
-                                        country VARCHAR(40),
-                                        region VARCHAR(40),
-                                        price DECIMAL(4, 2),
-                                        currency VARCHAR(8)
-                                        );
-                                    """
-
+ec = connect_to_exist_db(host, user, password, name_db)
+if ec is not None:
     execute_query(ec, create_table_price_query)
+else:
+    c = connect_to_db(host, user, password)
+    create_new_db(c, create_db_query)
+    ec = connect_to_exist_db(host, user, password, name_db)
+    execute_query(ec, create_table_price_query)
+
+
+
+
+
+
